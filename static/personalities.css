@@ -1,0 +1,83 @@
+body{
+    background-color: #EEF0F5;
+}
+.header {
+    padding: 20px; /* Espaciado interno del encabezado */
+    text-align: right; /* Alineación del texto a la derecha */
+    position: relative; /* Posición relativa para posicionar el título */
+    padding-top: 200px;
+    background-color: #5D44F9;
+    transition: all 0.3s ease;
+    color: #EEF0F5;
+}
+.header h1 {
+    position: absolute; /* Posición absoluta para ajustar el título */
+    bottom: 60px; /* Alineación en la parte inferior del encabezado */
+    left: 120px; /* Alineación a la izquierda */
+    font-size: 50px; /* Tamaño de fuente */
+}
+.header h2 {
+    position: absolute; /* Posición absoluta para ajustar el título */
+    bottom: 20px; /* Alineación en la parte inferior del encabezado */
+    left: 120px; /* Alineación a la izquierda */
+    font-size: 30px; /* Tamaño de fuente */
+}
+.header.active{
+    margin-left: 100px;
+}
+.sidebar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 70px; /* Ancho de la barra lateral */
+    background-color: #1C2136; /* Color de fondo */
+    padding-top: 20px; /* Espaciado interno superior */
+    transition: all 0.3s ease; /* Transición suave para animaciones */
+}
+.sidebar.active {
+    width: 150px; /* Ancho de la barra lateral cuando está activa */
+}
+.sidebar .nav-item {
+    display: none; /* Oculta los elementos de la barra lateral por defecto */
+}
+.sidebar.active .nav-item {
+    display: block; /* Muestra los elementos de la barra lateral cuando está activa */
+}
+.sidebar a {
+    padding: 10px 10px;
+    text-decoration: none;
+    font-size: 18px;
+    color: #ffffff; /* Color del texto */
+    display: block;
+    transition: all 0.3s;
+}
+.sidebar a:hover {
+    background-color: #495057; /* Color de fondo al pasar el mouse */
+}
+.btn{
+    background: transparent;
+    border: 0.5px solid transparent;
+    font-size: 18px;
+    margin-right: 20px;
+}
+.btn:hover{
+    background-color: #131721;
+    border: 0.5px solid transparent;
+    font-size: 20px;
+}
+.nav-link{
+    color: white;
+}
+.nav-link:hover{
+    color: white;
+    background-color: #131721;
+}
+.nav-item::after{
+    color: #5D44F9;
+}
+.card{
+    display: flex;
+    flex-direction: column;
+    padding: 12px 15px;
+}

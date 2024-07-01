@@ -1,0 +1,153 @@
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gestión de Clase</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f0f0f0;
+        }
+        .header {
+            background-color: #0066cc;
+            color: white;
+            padding: 20px;
+            text-align: center;
+        }
+        .nav {
+            background-color: #ffffff;
+            padding: 10px;
+            border-bottom: 1px solid #ddd;
+        }
+        .nav a {
+            color: #333;
+            text-decoration: none;
+            margin-right: 15px;
+        }
+        .content {
+            padding: 20px;
+        }
+        .card {
+            background-color: white;
+            border-radius: 5px;
+            padding: 15px;
+            margin-bottom: 15px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        form {
+            display: flex;
+            flex-direction: column;
+        }
+        input, textarea, button {
+            margin-bottom: 10px;
+            padding: 5px;
+        }
+        button {
+            background-color: #0066cc;
+            color: white;
+            border: none;
+            padding: 10px;
+            cursor: pointer;
+        }
+        #listaTareas, #listaPracticas, #listaPublicaciones {
+            list-style-type: none;
+            padding: 0;
+        }
+        #listaTareas li, #listaPracticas li, #listaPublicaciones li {
+            background-color: #f9f9f9;
+            margin-bottom: 5px;
+            padding: 10px;
+            border-radius: 3px;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>Gestión de Clase</h1>
+    </div>
+    <div class="nav">
+        <a href="index.html">Volver al Panel Principal</a>
+        <a href="#" onclick="mostrarSeccion('tareas')">Tareas</a>
+        <a href="#" onclick="mostrarSeccion('practicas')">Prácticas</a>
+        <a href="#" onclick="mostrarSeccion('publicaciones')">Publicaciones</a>
+    </div>
+    <div class="content">
+        <div id="seccionTareas" class="card">
+            <h2>Asignar Tarea</h2>
+            <form id="formTarea">
+                <input type="text" id="tituloTarea" placeholder="Título de la tarea" required>
+                <textarea id="descripcionTarea" placeholder="Descripción de la tarea" required></textarea>
+                <input type="date" id="fechaTarea" required>
+                <button type="submit">Asignar Tarea</button>
+            </form>
+            <h3>Tareas Asignadas:</h3>
+            <ul id="listaTareas"></ul>
+        </div>
+        
+        <div id="seccionPracticas" class="card" style="display:none;">
+            <h2>Asignar Práctica</h2>
+            <form id="formPractica">
+                <input type="text" id="tituloPractica" placeholder="Título de la práctica" required>
+                <textarea id="descripcionPractica" placeholder="Descripción de la práctica" required></textarea>
+                <input type="date" id="fechaPractica" required>
+                <button type="submit">Asignar Práctica</button>
+            </form>
+            <h3>Prácticas Asignadas:</h3>
+            <ul id="listaPracticas"></ul>
+        </div>
+        
+        <div id="seccionPublicaciones" class="card" style="display:none;">
+            <h2>Crear Publicación</h2>
+            <form id="formPublicacion">
+                <input type="text" id="tituloPublicacion" placeholder="Título de la publicación" required>
+                <textarea id="contenidoPublicacion" placeholder="Contenido de la publicación" required></textarea>
+                <button type="submit">Publicar</button>
+            </form>
+            <h3>Publicaciones Recientes:</h3>
+            <ul id="listaPublicaciones"></ul>
+        </div>
+    </div>
+
+    <script>
+        function mostrarSeccion(seccion) {
+            document.getElementById('seccionTareas').style.display = 'none';
+            document.getElementById('seccionPracticas').style.display = 'none';
+            document.getElementById('seccionPublicaciones').style.display = 'none';
+            document.getElementById('seccion' + seccion.charAt(0).toUpperCase() + seccion.slice(1)).style.display = 'block';
+        }
+
+        function agregarElemento(formulario, lista) {
+            formulario.addEventListener('submit', function(e) {
+                e.preventDefault();
+                const titulo = this.querySelector('input[type="text"]').value;
+                const descripcion = this.querySelector('textarea').value;
+                const fecha = this.querySelector('input[type="date"]') ? this.querySelector('input[type="date"]').value : '';
+                
+                const li = document.createElement('li');
+                li.innerHTML = `<strong>${titulo}</strong><br>${descripcion}${fecha ? '<br>Fecha: ' + fecha : ''}`;
+                document.getElementById(lista).appendChild(li);
+                
+                this.reset();
+            });
+        }
+
+        agregarElemento(document.getElementById('formTarea'), 'listaTareas');
+        agregarElemento(document.getElementById('formPractica'), 'listaPracticas');
+        agregarElemento(document.getElementById('formPublicacion'), 'listaPublicaciones');
+
+        // Mostrar la sección correspondiente si se accede desde un enlace con ancla
+        window.onload = function() {
+            const hash = window.location.hash;
+            if (hash === '#seccionTareas') {
+                mostrarSeccion('tareas');
+            } else if (hash === '#seccionPracticas') {
+                mostrarSeccion('practicas');
+            } else if (hash === '#seccionPublicaciones') {
+                mostrarSeccion('publicaciones');
+            }
+        };
+    </script>
+</body>
+</html>

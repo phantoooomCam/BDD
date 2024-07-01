@@ -1,0 +1,105 @@
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Panel Principal del Profesor</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f0f0f0;
+        }
+        .header {
+            background-color: #0066cc;
+            color: white;
+            padding: 20px;
+            text-align: center;
+        }
+        .nav {
+            background-color: #ffffff;
+            padding: 10px;
+            border-bottom: 1px solid #ddd;
+        }
+        .nav a {
+            color: #333;
+            text-decoration: none;
+            margin-right: 15px;
+        }
+        .content {
+            padding: 20px;
+            display: flex;
+            justify-content: space-between;
+        }
+        .card {
+            background-color: white;
+            border-radius: 5px;
+            padding: 15px;
+            margin-bottom: 15px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .btn {
+            display: inline-block;
+            background-color: #0066cc;
+            color: white;
+            padding: 10px 15px;
+            text-decoration: none;
+            border-radius: 5px;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>Panel Principal del Profesor</h1>
+    </div>
+    <div class="nav">
+        <a href="#home">Inicio</a>
+        <a href="gestion_clase.html">Gestión de Clase</a>
+    </div>
+    <div class="content">
+        <div class="left-column">
+            <div class="card">
+                <h2>Próximas Entregas</h2>
+                <ul id="assignmentList"></ul>
+                <a href="gestion_clase.html#seccionTareas" class="btn">Gestionar Tareas</a>
+            </div>
+        </div>
+        <div class="right-column">
+            <div class="card">
+                <h2>Publicaciones Recientes</h2>
+                <ul id="postList"></ul>
+                <a href="gestion_clase.html#seccionPublicaciones" class="btn">Gestionar Publicaciones</a>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Datos de ejemplo
+        const assignments = [
+            "Tarea de Matemáticas - Entrega 30/6",
+            "Proyecto de Ciencias - Entrega 5/7",
+            "Ensayo de Historia - Entrega 10/7"
+        ];
+
+        const posts = [
+            "Recuerden traer sus libros de texto mañana",
+            "Formularios de permiso para la excursión deben entregarse la próxima semana",
+            "¡Felicitaciones por la feria de ciencias!"
+        ];
+
+        // Función para poblar las listas
+        function populateList(elementId, items) {
+            const list = document.getElementById(elementId);
+            items.forEach(item => {
+                const li = document.createElement('li');
+                li.textContent = item;
+                list.appendChild(li);
+            });
+        }
+
+        populateList('assignmentList', assignments);
+        populateList('postList', posts);
+    </script>
+</body>
+</html>

@@ -1,0 +1,93 @@
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Iniciar Sesión - Sistema Escolar</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        .login-container {
+            background-color: white;
+            padding: 2rem;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            width: 300px;
+        }
+        h1 {
+            text-align: center;
+            color: #0066cc;
+        }
+        form {
+            display: flex;
+            flex-direction: column;
+        }
+        label {
+            margin-top: 1rem;
+            color: #333;
+        }
+        input, select {
+            padding: 0.5rem;
+            margin-top: 0.5rem;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+        button {
+            margin-top: 1rem;
+            padding: 0.5rem;
+            background-color: #0066cc;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        button:hover {
+            background-color: #0052a3;
+        }
+    </style>
+</head>
+<body>
+    <div class="login-container">
+        <h1>Iniciar Sesión</h1>
+        <form id="loginForm">
+            <label for="userId">Correo o Número de Boleta:</label>
+            <input type="text" id="userId" required>
+
+            <label for="password">Contraseña:</label>
+            <input type="password" id="password" required>
+        
+            <button type="submit">Iniciar Sesión</button>
+            <button type="submit" class="sing">No tengo una cuenta</button>
+        </form>
+    </div>
+
+    <script>
+        document.getElementById('loginForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const userType = document.getElementById('userType').value;
+            const userId = document.getElementById('userId').value;
+            const password = document.getElementById('password').value;
+
+            // Aquí puedes agregar la lógica de autenticación
+            // Por ahora, simplemente redirigiremos a index.html
+            console.log(`Tipo de usuario: ${userType}, ID: ${userId}, Contraseña: ${password}`);
+            window.location.href = 'index.html';
+        });
+        document.addEventListener('DOMContentLoaded', function () {    
+            var btn1 = document.querySelector(".sing");
+
+            btn1.addEventListener("click", function() {
+                // Redireccionar a otro archivo HTML
+                window.location.href = "registrarse.html";
+        });
+    });
+    </script>
+</body>
+</html>

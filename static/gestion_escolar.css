@@ -36,13 +36,39 @@ main{
     margin-top: 20px;
     width: 90%;
     text-align: center;
-    border: 1px solid transparent;
+    border: 0.5px solid transparent;
     background: #E9E9EB;
     border-radius: 8px;
+}
+thead{
+    border-radius: 8px;
+}
+tbody{
+    border: 0.5px solid transparent;
 }
 th{
     justify-content: space-between;
     padding: 10px 0;
     font-size: 17px;
     font-weight: 500;
+}
+.data-head{
+    padding: 10px 2px;
+    background-color: #EF484C;
+    color: white;
+    border: 1px solid transparent;
+}
+.informacion-tabla{
+    color: black;
+    padding: 10px 0;
+    font-size: 15px;
+    text-align: center;
+    background: #E9E9EB;
+}
+tr{
+    border-radius: 8px;
+}   
+.tabla tr:hover{
+    cursor: pointer;
+    background: #B9B9BB;
 }

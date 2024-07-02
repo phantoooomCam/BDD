@@ -39,29 +39,16 @@
                         <th class="data-head">Operacion</th>
                     </thead>
                     <tbody>
-                        <tr class="informacion-tabla"></tr>
-                        <tr class="informacion-tabla"></tr>
-                        <tr class="informacion-tabla"></tr>
-                        <tr class="informacion-tabla"></tr>
-                        <tr class="informacion-tabla"></tr>
-                    </tbody>
-                </table>
-
-                <table class="tabla">
-                    <thead>
-                        <th class="data-head">ID</th>
-                        <th class="data-head">Cuenta</th>
-                        <th class="data-head">Usuario</th>
-                        <th class="data-head">Email</th>
-                        <th class="data-head">Contraseña</th>
-                        <th class="data-head">Operacion</th>
-                    </thead>
-                    <tbody>
-                        <tr class="informacion-tabla"></tr>
-                        <tr class="informacion-tabla"></tr>
-                        <tr class="informacion-tabla"></tr>
-                        <tr class="informacion-tabla"></tr>
-                        <tr class="informacion-tabla"></tr>
+                        {% for usuario in usuarios %}
+                            <tr>
+                                <td class="informacion-tabla">{{ usuario.id }}</td>
+                                <td class="informacion-tabla">{{ usuario.opcion }}</td>
+                                <td class="informacion-tabla">{{ usuario.nombre }}</td>
+                                <td class="informacion-tabla">{{ usuario.correo }}</td>
+                                <td class="informacion-tabla">{{ usuario.contrasena }}</td>
+                                <td class="informacion-tabla">h</td>
+                            </tr>    
+                        {% endfor %}
                     </tbody>
                 </table>
             </div>

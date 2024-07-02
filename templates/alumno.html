@@ -9,16 +9,14 @@
     <link href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&family=Nunito:ital,wght@0,200..1000;1,200..1000&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&display=swap" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
-    <link rel="stylesheet" href="reset.css">
-    <link rel="stylesheet" href="bootstrap.css">
-    <link rel="stylesheet" href="personalities.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='reset.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='bootstrap.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='personalities.css') }}">
 </head>
 <body>
     <!-- Encabezado -->
     <header class="header">
-        <h1 class="asignatura">Nombre de la carrera</h1>
-        <h2 class="Alumno">Alumno</h2>
-        <!-- Botón para mostrar/ocultar la barra lateral -->
+        <h1 class="asignatura">UPIITA</h1>
     </header>
 
     <div class="container-fluid">

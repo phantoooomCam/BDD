@@ -58,10 +58,15 @@ cursor = conn.cursor()
 def index():
     if request.method == 'POST':
         correo = request.form['correo']
-        password = request.form['password']
+        password = request.form['password'] 
         
+<<<<<<< HEAD
         query = "SELECT * FROM Usuario WHERE correo = ? AND  contrasena = ?"
         cursor.execute(query, (correo,password))
+=======
+        query = "SELECT * FROM Usuario WHERE correo = ? AND password = ?"
+        cursor.execute(query, (correo, password))
+>>>>>>> 438991af0186e0679f3758bd28da8a6ce7b8d796
         
         user = cursor.fetchone()
         

@@ -60,8 +60,8 @@ def index():
         correo = request.form['correo']
         password = request.form['password'] 
         
-        query = "SELECT * FROM Usuario WHERE correo = ? AND password = ?"
-        cursor.execute(query, (correo, password))
+        query = "SELECT * FROM Usuario WHERE correo = ? AND  password = ?"
+        cursor.execute(query, (correo,password))
         
         user = cursor.fetchone()
         
@@ -87,7 +87,7 @@ def index():
             column_names = [column[0] for column in cursor.description]
             user_data = dict(zip(column_names, user))
             session['user'] = user_data
-            return redirect(url_for(''))
+            return redirect(url_for('gestion'))
         else:
             error = 'Correo electrónico o contraseña incorrectos. Por favor, inténtelo de nuevo.'
             return render_template('login.html', error=error)
@@ -103,7 +103,7 @@ def registro():
         correo = request.form['correo']
         password = request.form['password']
         
-        query="INSERT INTO Usuario (opcion, nombre, correo, password) VALUES (?, ?, ?, ?)"
+        query="INSERT INTO Usuario (opcion, nombre, correo, contrasena) VALUES (?, ?, ?, ?)"
         cursor.execute(query, (opcion, nombre, correo,password))
         conn.commit() 
     
@@ -131,6 +131,9 @@ def gestionpublicacion():
 
 
 
+@app.route('/gestion', methods=['GET','POST'])
+def gestion():
+    return render_template('gestion_escolar.html')
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=1433,debug=True)

@@ -1,0 +1,48 @@
+header{
+    background-color: #3D6198;
+    color: white;
+    font-family: DM Sans, sans-serif;
+    padding: 10px 100px;
+}
+.titulo{
+    padding: 10px 0;
+}
+body{
+    background: #43506C;
+}
+main{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.opciones-nav{
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+}
+.tablas{
+    width: 90%;
+    display: block;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+.btn{
+    background: transparent;
+    color: white;
+    font-size: 18px;
+}
+.tabla{
+    margin-top: 20px;
+    width: 90%;
+    text-align: center;
+    border: 1px solid transparent;
+    background: #E9E9EB;
+    border-radius: 8px;
+}
+th{
+    justify-content: space-between;
+    padding: 10px 0;
+    font-size: 17px;
+    font-weight: 500;
+}

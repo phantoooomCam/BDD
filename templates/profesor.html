@@ -52,39 +52,78 @@
             border-radius: 5px;
             margin-top: 10px;
         }
+        .btn-delete {
+            background-color: #cc0000;
+            color: white;
+            padding: 5px 10px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
     </style>
 </head>
 <body>
     <div class="header">
         <h1>Panel Principal del Profesor</h1>
     </div>
-    <!--<div class="nav">
+    <div class="nav">
         <a href="/profesor">Inicio</a>
-        <a href="/gestion">Gestión de Clase</a>
-    </div>-->
+        <a href="/profesor">Gestión de Clase</a>
+    </div>
     <div class="content">
         <div class="column">
             <div class="card">
                 <h2>Próximas Tareas</h2>
-                <ul id="assignmentList"></ul>
+                <ul>
+                    {% for tarea in tareas %}
+                        <li class="item">{{ tarea.Titulo }} - {{ tarea.Descripcion }} - {{ tarea.Fecha }}
+                            <form action="/eliminar_tarea" method="post" style="display:inline;">
+                                <input type="hidden" name="id" value="{{ tarea.TareaID }}">
+                                <button type="submit" class="btn-delete">Eliminar</button>
+                            </form>
+                        </li>
+                    {% endfor %}
+                </ul>
                 <a href="/gestiontarea" class="btn">Gestionar Tareas</a>
             </div>
         </div>
         <div class="column">
             <div class="card">
-                <h2>Proximas Practicas</h2>
-                <ul id="postList"></ul>
-                <a href="/gestionpractica" class="btn">Gestionar Practicas</a>
+                <h2>Próximas Prácticas</h2>
+                <ul>
+                    {% for practica in practicas %}
+                        <li class="item">{{ practica.Titulo }} - {{ practica.Descripcion }} - {{ practica.Fecha }}
+                            <form action="/eliminar_practica" method="post" style="display:inline;">
+                                <input type="hidden" name="id" value="{{ practica.PracticaID }}">
+                                <button type="submit" class="btn-delete">Eliminar</button>
+                            </form>
+                        </li>
+                    {% endfor %}
+                </ul>
+                <a href="/gestionpractica" class="btn">Gestionar Prácticas</a>
             </div>
         </div>
         <div class="column">
             <div class="card">
                 <h2>Publicaciones Recientes</h2>
-                <ul id="postList"></ul>
+                <ul>
+                    {% for pub in publicacion %}
+                        <li class="item">{{ pub.Titulo }} - {{ pub.Descripcion }} - {{ pub.Fecha }}
+                            <form action="/eliminar_publicacion" method="post" style="display:inline;">
+                                <input type="hidden" name="id" value="{{ pub.PublicacionID }}">
+                                <button type="submit" class="btn-delete">Eliminar</button>
+                            </form>
+                        </li>
+                    {% endfor %}
+                </ul>
                 <a href="/gestionpublicacion" class="btn">Gestionar Publicaciones</a>
             </div>
         </div>
     </div>
-
 </body>
 </html>

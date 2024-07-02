@@ -60,13 +60,8 @@ def index():
         correo = request.form['correo']
         password = request.form['password'] 
         
-<<<<<<< HEAD
-        query = "SELECT * FROM Usuario WHERE correo = ? AND  contrasena = ?"
+        query = "SELECT * FROM Usuario WHERE correo = ? AND  password = ?"
         cursor.execute(query, (correo,password))
-=======
-        query = "SELECT * FROM Usuario WHERE correo = ? AND password = ?"
-        cursor.execute(query, (correo, password))
->>>>>>> 438991af0186e0679f3758bd28da8a6ce7b8d796
         
         user = cursor.fetchone()
         
@@ -108,23 +103,133 @@ def registro():
         correo = request.form['correo']
         password = request.form['password']
         
-        query="INSERT INTO Usuario (opcion, nombre, correo, contrasena) VALUES (?, ?, ?, ?)"
+        query="INSERT INTO Usuario (opcion, nombre, correo, password) VALUES (?, ?, ?, ?)"
         cursor.execute(query, (opcion, nombre, correo,password))
         conn.commit() 
     
     return render_template('registrarse.html')
 
-@app.route('/alumno',methods=['GET','POST'])
+@app.route('/alumno', methods=['GET', 'POST'])
 def alumno():
-    return render_template('alumno.html')
+    query = "SELECT TareaID, Titulo, Descripcion, Fecha FROM Tarea"
+    cursor.execute(query)
+    tareas = cursor.fetchall()
 
-@app.route('/profesor',methods=['GET','POST'])
-def profesor():
-    return render_template('profesor.html')
+    query2 = "SELECT PracticaID, Titulo, Descripcion, Fecha FROM Practica"
+    cursor.execute(query2)
+    practicas = cursor.fetchall()
 
-@app.route('/gestion', methods=['GET','POST'])
+    query3 = "SELECT PublicacionID, Titulo, Descripcion, Fecha FROM Publicacion"
+    cursor.execute(query3)
+    publicacion = cursor.fetchall()
+
+    return render_template('alumno.html', tareas=tareas, practicas=practicas, publicacion=publicacion)
+
+
+@app.route('/gestion', methods=['GET', 'POST'])
 def gestion():
-    return render_template('gestion_escolar.html')
+    # Consulta SQL para obtener los usuarios
+    query = "SELECT id, opcion, nombre, correo, password FROM Usuario"
+    cursor.execute(query)
+    usuarios = cursor.fetchall()
+
+    return render_template('gestion_escolar.html', usuarios=usuarios)
+
+# Ruta para eliminar un usuario
+@app.route('/eliminar_usuario/<int:usuario_id>', methods=['POST'])
+@login_required
+def eliminar_usuario(usuario_id):
+    query = "DELETE FROM Usuario WHERE id=?"
+    cursor.execute(query, (usuario_id,))
+    conn.commit()
+    return redirect(url_for('gestion'))
+
+
+@app.route('/profesor', methods=['GET', 'POST'])
+def profesor():
+    user = session.get('user')
+    if user:
+        query = "SELECT TareaID, Titulo, Descripcion, Fecha FROM Tarea"
+        cursor.execute(query)
+        tareas = cursor.fetchall()
+
+        query2 = "SELECT PracticaID, Titulo, Descripcion, Fecha FROM Practica"
+        cursor.execute(query2)
+        practicas = cursor.fetchall()
+
+        query3 = "SELECT PublicacionID, Titulo, Descripcion, Fecha FROM Publicacion"
+        cursor.execute(query3)
+        publicacion = cursor.fetchall()
+
+        return render_template('profesor.html', tareas=tareas, practicas=practicas, publicacion=publicacion)
+    else:
+        return redirect('/')
+
+
+@app.route('/gestiontarea', methods=['GET','POST'])
+def gestiontarea():
+    if request.method == 'POST':
+        titulo = request.form['titulo']
+        descripcion = request.form['descripcion']
+        fecha = request.form['fecha']
+        
+        query = "INSERT INTO Tarea (Titulo,Descripcion,Fecha) VALUES (?,?,?)"
+        cursor.execute(query,(titulo,descripcion,fecha))
+        conn.commit()
+    
+    return render_template('gestiontarea.html')
+
+@app.route('/gestionpractica', methods=['GET','POST'])
+def gestionpractica():
+    if request.method == 'POST':
+        titulo = request.form['titulo']
+        descripcion = request.form['descripcion']
+        fecha = request.form['fecha']
+        
+        query = "INSERT INTO Practica (Titulo,Descripcion,Fecha) VALUES (?,?,?)"
+        cursor.execute(query,(titulo,descripcion,fecha))
+        conn.commit()
+    
+    return render_template('gestionpractica.html')
+
+@app.route('/gestionpublicacion', methods=['GET','POST'])
+def gestionpublicacion():
+    if request.method == 'POST':
+        titulo = request.form['titulo']
+        descripcion = request.form['descripcion']
+        fecha = request.form['fecha']
+        
+        query = "INSERT INTO Publicacion (Titulo,Descripcion,Fecha) VALUES (?,?,?)"
+        cursor.execute(query,(titulo,descripcion,fecha))
+        conn.commit()
+    return render_template('gestionpublicacion.html')
+
+@app.route('/eliminar_tarea', methods=['POST'])
+def eliminar_tarea():
+    tarea_id = request.form['id']
+    query = "DELETE FROM Tarea WHERE TareaID = ?"
+    cursor.execute(query, tarea_id)
+    conn.commit()
+    return redirect('/profesor')
+
+@app.route('/eliminar_practica', methods=['POST'])
+def eliminar_practica():
+    practica_id = request.form['id']
+    query = "DELETE FROM Practica WHERE PracticaID = ?"
+    cursor.execute(query, practica_id)
+    conn.commit()
+    return redirect('/profesor')
+
+@app.route('/eliminar_publicacion', methods=['POST'])
+def eliminar_publicacion():
+    publicacion_id = request.form['id']
+    query = "DELETE FROM Publicacion WHERE PublicacionID = ?"
+    cursor.execute(query, publicacion_id)
+    conn.commit()
+    return redirect('/profesor')
+
+
+
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=1433,debug=True)

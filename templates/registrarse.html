@@ -1,3 +1,4 @@
+<!DOCTYPE html>
 <html lang="es">
 <head>
     <meta charset="UTF-8">
@@ -51,6 +52,17 @@
         button:hover {
             background-color: #0052a3;
         }
+        .return-link {
+            text-align: center;
+            margin-top: 1rem;
+        }
+        .return-link a {
+            color: #0066cc;
+            text-decoration: none;
+        }
+        .return-link a:hover {
+            text-decoration: underline;
+        }
     </style>
 </head>
 <body>
@@ -65,8 +77,7 @@
                 <option>Gestión Escolar</option>
             </select>
 
-            
-            <label for="userId">Nombre::</label>
+            <label for="userId">Nombre:</label>
             <input type="text" id="userId" required name='nombre'>
 
             <label for="userId">Correo:</label>
@@ -77,6 +88,9 @@
         
             <button type="submit">Registrarse</button>
         </form>
+        <div class="return-link">
+            <a href="/">Regresar al inicio</a>
+        </div>
     </div>
 </body>
 </html>

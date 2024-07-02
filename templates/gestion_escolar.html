@@ -1,57 +1,61 @@
 <!DOCTYPE html>
 <html lang="es">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Gestion Escolar</title>
-        <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
-        <meta http-equiv="Pragma" content="no-cache">
-        <meta http-equiv="Expires" content="0">
-        <link rel="preconnect" href="https://fonts.googleapis.com">
-        <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.8.1/font/bootstrap-icons.min.css" rel="stylesheet">
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-        <link href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&family=Nunito:ital,wght@0,200..1000;1,200..1000&display=swap" rel="stylesheet">
-        <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&display=swap" rel="stylesheet">
-        <link rel="stylesheet" href="{{ url_for('static', filename='reset.css') }}">
-        <link rel="stylesheet" href="{{ url_for('static', filename='bootstrap.css') }}">
-        <link rel="stylesheet" href="{{ url_for('static', filename='gestion_escolar.css') }}">
-    </head>
-    <body>
-        <header>
-            <h1 class="titulo">Gestion Escolar</h1>
-            <nav class="barra navbar navbar-expand-lg navbar-light">
-                <ul class="opciones-nav">
-                    <li class="lista_item"><button class="btn-usuarios btn">Usuarios</button></li>
-                    <li class="lista_item"><button class="btn-tareas btn">Tareas</button></li>
-                    <li class="lista_item"></li>
-                </ul>
-            </nav>
-        </header>
-        <main>
-            <div class="tablas">
-                <table class="tabla">
-                    <thead>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gestion Escolar</title>
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.8.1/font/bootstrap-icons.min.css" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&family=Nunito:ital,wght@0,200..1000;1,200..1000&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='reset.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='bootstrap.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='gestion_escolar.css') }}">
+</head>
+<body>
+    <header>
+        <h1 class="titulo">Gestion Escolar</h1>
+        <nav class="barra navbar navbar-expand-lg navbar-light">
+            <ul class="opciones-nav">
+                <li class="lista_item"><a href="/">Regresar al Inicio</a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <div class="tablas">
+            <table class="tabla">
+                <thead>
+                    <tr>
                         <th class="data-head">ID</th>
                         <th class="data-head">Cuenta</th>
                         <th class="data-head">Usuario</th>
                         <th class="data-head">Email</th>
                         <th class="data-head">Contraseña</th>
-                        <th class="data-head">Operacion</th>
-                    </thead>
-                    <tbody>
-                        {% for usuario in usuarios %}
-                            <tr>
-                                <td class="informacion-tabla">{{ usuario.id }}</td>
-                                <td class="informacion-tabla">{{ usuario.opcion }}</td>
-                                <td class="informacion-tabla">{{ usuario.nombre }}</td>
-                                <td class="informacion-tabla">{{ usuario.correo }}</td>
-                                <td class="informacion-tabla">{{ usuario.contrasena }}</td>
-                                <td class="informacion-tabla">h</td>
-                            </tr>    
-                        {% endfor %}
-                    </tbody>
-                </table>
-            </div>
-        </main>
-    </body>
+                        <th class="data-head">Operación</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for usuario in usuarios %}
+                    <tr>
+                        <td class="informacion-tabla">{{ usuario.id }}</td>
+                        <td class="informacion-tabla">{{ usuario.opcion }}</td>
+                        <td class="informacion-tabla">{{ usuario.nombre }}</td>
+                        <td class="informacion-tabla">{{ usuario.correo }}</td>
+                        <td class="informacion-tabla">{{ usuario.password }}</td>
+                        <td class="informacion-tabla">
+                            <form action="{{ url_for('eliminar_usuario', usuario_id=usuario.id) }}" method="post" onsubmit="return confirm('¿Estás seguro de que deseas eliminar este usuario?');">
+                                <button type="submit" style="border: none; background: none; color: #0066cc; text-decoration: underline; cursor: pointer;">Eliminar</button>
+                            </form>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </main>
+</body>
 </html>

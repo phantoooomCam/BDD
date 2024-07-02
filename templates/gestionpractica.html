@@ -73,13 +73,12 @@
     <div class="content">
         <div class="card">
             <h2>Asignar Practica</h2>
-            <form id="formGestion">
+            <form id="formGestion" action='/gestionpractica' method='POST'>
                 <input type="text" id="titulo" placeholder="Título" required name='titulo'>
                 <textarea id="descripcion" placeholder="Descripción" required name='descripcion'></textarea>
                 <input type="date" id="fecha" name='fecha'>
                 <button type="submit">Asignar</button>
             </form>
-            <h3>Practicas Asignadas:</h3>
             <ul id="listaTareas">
                 <!-- Aquí puedes añadir tareas asignadas -->
             </ul>

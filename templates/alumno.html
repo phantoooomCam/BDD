@@ -43,17 +43,46 @@
             <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
                 <div class="pt-3 pb-2 mb-3">
                     <h1>Tareas</h1>
-                    <h2>Trabajos  en clase.</h2>
+                    <h2>Trabajos en clase</h2>
                 </div>
 
                 <div id="seccionTareas" class="card">
-                    <h2>Entregar Tarea</h2>
-                    <form id="formTarea">
-                        <label id="tituloTarea" placeholder="Título de la tarea" required></label>
-                        <input type="date" id="fechaTarea" required placeholder="Fecha de entrega">
-                        <input type="file" id="archivo" required placeholder="Adjunta tu tarea">
-                        <button type="submit">Entregar Tarea</button>
-                    </form>
+                    <h2>Tareas Asignadas</h2>
+                    <ul>
+                        {% for tarea in tareas %}
+                            <li>{{ tarea.Titulo }} - {{ tarea.Descripcion }} - {{ tarea.Fecha }}
+                                <form action="/entregar_tarea" method="post" enctype="multipart/form-data" style="display:inline;">
+                                    <input type="hidden" name="tarea_id" value="{{ tarea.TareaID }}">
+                                    <input type="file" name="archivo" required>
+                                    <button type="submit">Entregar</button>
+                                </form>
+                            </li>
+                        {% endfor %}
+                    </ul>
+                </div>
+
+                <div id="seccionPracticas" class="card">
+                    <h2>Prácticas Asignadas</h2>
+                    <ul>
+                        {% for practica in practicas %}
+                            <li>{{ practica.Titulo }} - {{ practica.Descripcion }} - {{ practica.Fecha }}
+                                <form action="/entregar_practica" method="post" enctype="multipart/form-data" style="display:inline;">
+                                    <input type="hidden" name="practica_id" value="{{ practica.PracticaID }}">
+                                    <input type="file" name="archivo" required>
+                                    <button type="submit">Entregar</button>
+                                </form>
+                            </li>
+                        {% endfor %}
+                    </ul>
+                </div>
+
+                <div id="seccionPublicaciones" class="card">
+                    <h2>Publicaciones Recientes</h2>
+                    <ul>
+                        {% for pub in publicacion %}
+                            <li>{{ pub.Titulo }} - {{ pub.Descripcion }} - {{ pub.Fecha }}</li>
+                        {% endfor %}
+                    </ul>
                 </div>
             </main>
         </div>

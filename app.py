@@ -56,13 +56,12 @@ cursor = conn.cursor()
 #Direcciones Paginas web
 @app.route('/',methods=['GET','POST'])
 def index():
-    
     if request.method == 'POST':
         correo = request.form['correo']
-        password = request.form['password']
+        password = request.form['password'] 
         
-        query = "SELECT * FROM Usuario WHERE correo = ? AND  password = ?"
-        cursor.execute(query(correo,password))
+        query = "SELECT * FROM Usuario WHERE correo = ? AND password = ?"
+        cursor.execute(query, (correo, password))
         
         user = cursor.fetchone()
         
@@ -112,7 +111,12 @@ def registro():
 
 @app.route('/alumno',methods=['GET','POST'])
 def alumno():
-    return render_template('alumno.html')
+    usuario = session.get('user')
+    if usuario:
+        query = "SELECT nombre FROM Usuario WHERE opcion= 'Alumno' "
+        cursor.execute(query)
+        usuario= cursor.fetchall()
+    return render_template('alumno.html',usuario=usuario)
 
 @app.route('/profesor',methods=['GET','POST'])
 def profesor():

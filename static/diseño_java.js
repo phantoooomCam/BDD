@@ -54,26 +54,11 @@ inputs.forEach((input)=>{
     input.addEventListener('keyup', validarform)
     input.addEventListener('blur', validarform)
 }); 
-
-document.getElementById("botonRegresar").addEventListener("click", function() {
-    
-    window.location.href="/"
-});
 document.addEventListener("DOMContentLoaded", function(){
-    var btn = document.querySelector(".reset-password");
-    var btn1 = document.querySelector(".regresar");
-    var btn2 = document.querySelector(".sing");
-    
-    btn.addEventListener("click", function(){
-        window.location.href="/olvidecontraseña"
-    })
+    var btn1 = document.querySelector('.sing');
 
     btn1.addEventListener("click", function(){
-        window.location.href="/"
-    })
-    btn2.addEventListener("click", function(){
         window.location.href="/registro"
-    })
-
+    });
 })
 

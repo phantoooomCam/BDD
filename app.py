@@ -111,12 +111,7 @@ def registro():
 
 @app.route('/alumno',methods=['GET','POST'])
 def alumno():
-    usuario = session.get('user')
-    if usuario:
-        query = "SELECT nombre FROM Usuario WHERE opcion= 'Alumno' "
-        cursor.execute(query)
-        usuario= cursor.fetchall()
-    return render_template('alumno.html',usuario=usuario)
+    return render_template('alumno.html')
 
 @app.route('/profesor',methods=['GET','POST'])
 def profesor():

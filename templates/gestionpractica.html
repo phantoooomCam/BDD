@@ -1,0 +1,89 @@
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gestión de Practicas</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f0f0f0;
+        }
+        .header {
+            background-color: #741770;
+            color: white;
+            padding: 20px;
+            text-align: center;
+        }
+        .nav {
+            background-color: #ffffff;
+            padding: 10px;
+            border-bottom: 1px solid #ddd;
+        }
+        .nav a {
+            color: #333;
+            text-decoration: none;
+            margin-right: 15px;
+        }
+        .content {
+            padding: 20px;
+        }
+        .card {
+            background-color: white;
+            border-radius: 5px;
+            padding: 15px;
+            margin-bottom: 15px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        form {
+            display: flex;
+            flex-direction: column;
+        }
+        input, textarea, button {
+            margin-bottom: 10px;
+            padding: 5px;
+        }
+        button {
+            background-color: #741770;
+            color: white;
+            border: none;
+            padding: 10px;
+            cursor: pointer;
+        }
+        ul {
+            list-style-type: none;
+            padding: 0;
+        }
+        ul li {
+            background-color: #f9f9f9;
+            margin-bottom: 5px;
+            padding: 10px;
+            border-radius: 3px;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>Gestión de Practicas</h1>
+    </div>
+    <div class="nav">
+        <a href="/profesor">Volver al Panel Principal</a>
+    </div>
+    <div class="content">
+        <div class="card">
+            <h2>Asignar Practica</h2>
+            <form id="formGestion">
+                <input type="text" id="titulo" placeholder="Título" required name='titulo'>
+                <textarea id="descripcion" placeholder="Descripción" required name='descripcion'></textarea>
+                <input type="date" id="fecha" name='fecha'>
+                <button type="submit">Asignar</button>
+            </form>
+            <h3>Practicas Asignadas:</h3>
+            <ul id="listaTareas">
+                <!-- Aquí puedes añadir tareas asignadas -->
+            </ul>
+        </div>
+    </div>
+</body>
+</html>

@@ -117,6 +117,20 @@ def alumno():
 def profesor():
     return render_template('profesor.html')
 
+@app.route('/gestiontarea',methods=['GET','POST'])
+def gestiontarea():
+    return render_template('gestiontarea.html')
+
+@app.route('/gestionpractica',methods=['GET','POST'])
+def gestionpractica():
+    return render_template('gestionpractica.html')
+
+@app.route('/gestionpublicacion',methods=['GET','POST'])
+def gestionpublicacion():
+    return render_template('gestionpublicacion.html')
+
+
+
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=1433,debug=True)

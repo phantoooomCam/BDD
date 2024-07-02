@@ -1,3 +1,4 @@
+<!DOCTYPE html>
 <html lang="es">
 <head>
     <meta charset="UTF-8">
@@ -31,6 +32,10 @@
             display: flex;
             justify-content: space-between;
         }
+        .column {
+            flex: 1;
+            margin: 0 10px;
+        }
         .card {
             background-color: white;
             border-radius: 5px;
@@ -53,53 +58,33 @@
     <div class="header">
         <h1>Panel Principal del Profesor</h1>
     </div>
-    <div class="nav">
-        <a href="#home">Inicio</a>
-        <a href="gestion_clase.html">Gestión de Clase</a>
-    </div>
+    <!--<div class="nav">
+        <a href="/profesor">Inicio</a>
+        <a href="/gestion">Gestión de Clase</a>
+    </div>-->
     <div class="content">
-        <div class="left-column">
+        <div class="column">
             <div class="card">
-                <h2>Próximas Entregas</h2>
+                <h2>Próximas Tareas</h2>
                 <ul id="assignmentList"></ul>
-                <a href="gestion_clase.html#seccionTareas" class="btn">Gestionar Tareas</a>
+                <a href="/gestiontarea" class="btn">Gestionar Tareas</a>
             </div>
         </div>
-        <div class="right-column">
+        <div class="column">
+            <div class="card">
+                <h2>Proximas Practicas</h2>
+                <ul id="postList"></ul>
+                <a href="/gestionpractica" class="btn">Gestionar Practicas</a>
+            </div>
+        </div>
+        <div class="column">
             <div class="card">
                 <h2>Publicaciones Recientes</h2>
                 <ul id="postList"></ul>
-                <a href="gestion_clase.html#seccionPublicaciones" class="btn">Gestionar Publicaciones</a>
+                <a href="/gestionpublicacion" class="btn">Gestionar Publicaciones</a>
             </div>
         </div>
     </div>
 
-    <script>
-        // Datos de ejemplo
-        const assignments = [
-            "Tarea de Matemáticas - Entrega 30/6",
-            "Proyecto de Ciencias - Entrega 5/7",
-            "Ensayo de Historia - Entrega 10/7"
-        ];
-
-        const posts = [
-            "Recuerden traer sus libros de texto mañana",
-            "Formularios de permiso para la excursión deben entregarse la próxima semana",
-            "¡Felicitaciones por la feria de ciencias!"
-        ];
-
-        // Función para poblar las listas
-        function populateList(elementId, items) {
-            const list = document.getElementById(elementId);
-            items.forEach(item => {
-                const li = document.createElement('li');
-                li.textContent = item;
-                list.appendChild(li);
-            });
-        }
-
-        populateList('assignmentList', assignments);
-        populateList('postList', posts);
-    </script>
 </body>
 </html>

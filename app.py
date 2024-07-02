@@ -60,8 +60,14 @@ def index():
         correo = request.form['correo']
         password = request.form['password'] 
         
+<<<<<<< HEAD
         query = "SELECT * FROM Usuario WHERE correo = ? AND  contrasena = ?"
-        cursor.execute(query, (correo,password)) 
+        cursor.execute(query, (correo,password))
+=======
+        query = "SELECT * FROM Usuario WHERE correo = ? AND password = ?"
+        cursor.execute(query, (correo, password))
+>>>>>>> 438991af0186e0679f3758bd28da8a6ce7b8d796
+        
         user = cursor.fetchone()
         
         if user:
@@ -116,16 +122,9 @@ def alumno():
 def profesor():
     return render_template('profesor.html')
 
-@app.route('/gestion',methods=['GET','POST'])
-def gestion_escolar():
-    user = session.get('user')
-    if user:
-        query = "SELECT id, opcion, nombre, correo, contrasena FROM Usuario"
-        cursor.execute(query)
-        usuarios = cursor.fetchall()
-        return render_template('gestion_escolar.html', usuarios=usuarios)
-    else:
-        return redirect(url_for('login.html'))
+@app.route('/gestion', methods=['GET','POST'])
+def gestion():
+    return render_template('gestion_escolar.html')
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=1433,debug=True)

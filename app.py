@@ -229,6 +229,19 @@ def eliminar_publicacion():
     return redirect('/profesor')
 
 
+@app.route('/cerrarsesion', methods=['POST'])
+@login_required
+def cerrar_sesion():
+    if 'user' in session:
+        session.pop('user', None)
+    response = make_response(render_template('login.html'))
+    response.headers['Cache-Control'] = 'no-cache, no-store, must-revalidate'  # HTTP 1.1
+    response.headers['Pragma'] = 'no-cache'  # HTTP 1.0
+    response.headers['Expires'] = '0'  # Proxies
+    
+    return response
+
+
 
 
 if __name__ == '__main__':

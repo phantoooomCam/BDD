@@ -12,6 +12,7 @@ from functools import wraps
 import sqlite3
 from werkzeug.security import generate_password_hash, check_password_hash
 import base64
+from werkzeug.utils import secure_filename
 
 #Configuracion de cookies---------------------------------------------------------
 app = Flask(__name__,template_folder='templates')
@@ -20,6 +21,11 @@ app.config['SESSION_TYPE'] = 'filesystem'
 app.config['SESSION_PERMANENT'] = True
 app.config['SESSION_COOKIE_SECURE'] = False
 app.config['PERMANENT_SESSION_LIFETIME'] = timedelta(minutes=30)
+
+UPLOAD_FOLDER = 'path/to/upload/folder'  # Cambia esta ruta a la carpeta donde quieres guardar los archivos
+ALLOWED_EXTENSIONS = {'pdf'}
+
+app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 
 #Configuracion de requerimiento de sesion-------------------------------------------
 def login_required(f):
@@ -54,6 +60,22 @@ conn_str = (
 conn = pyodbc.connect(conn_str)
 cursor = conn.cursor()
 
+def allowed_file(filename):
+    return '.' in filename and filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
+@app.route('/descargar_pdf/<int:entrega_id>')
+@login_required
+def descargar_pdf(entrega_id):
+    query = "SELECT datos FROM Entrega_trabajo WHERE id = ?"
+    cursor.execute(query, (entrega_id,))
+    archivo = cursor.fetchone()
+    if archivo:
+        response = make_response(archivo[0])
+        response.headers['Content-Type'] = 'application/pdf'
+        response.headers['Content-Disposition'] = 'attachment; filename=archivo.pdf'
+        return response
+    return "Archivo no encontrado", 404
+
+
 #Direcciones Paginas web
 @app.route('/',methods=['GET','POST'])
 def index():
@@ -61,7 +83,7 @@ def index():
         correo = request.form['correo']
         password = request.form['password'] 
         
-        query = "SELECT * FROM Usuarios WHERE correo = ? AND  password = ?"
+        query = "SELECT * FROM Usuario WHERE correo = ? AND  password = ?"
         cursor.execute(query, (correo,password))
         user = cursor.fetchone()
         
@@ -129,7 +151,7 @@ def alumno():
 @app.route('/gestion', methods=['GET', 'POST'])
 def gestion():
     # Consulta SQL para obtener los usuarios
-    query = "SELECT id, opcion, nombre, correo, password FROM Usuarios"
+    query = "SELECT id, opcion, nombre, correo, password FROM Usuario"
     cursor.execute(query)
     usuarios = cursor.fetchall()
 
@@ -249,9 +271,25 @@ def entregar_tarea():
 
         print(opcion)
         if opcion == 'Archivo':
-
-            #aqui va lo del pdf
-            return redirect('/alumno')
+            if 'archivo' not in request.files:
+                flash('No se ha seleccionado ningún archivo')
+                return redirect(request.url)
+            file = request.files['archivo']
+            if file and allowed_file(file.filename):
+                filename = secure_filename(file.filename)
+                file_data = file.read()
+                
+                # Guardar en la base de datos
+                tareaid = request.form['tarea_id']
+                user_id = session['user']['id']
+                query = "INSERT INTO Entrega_trabajo (id_tarea, id_alumno, contenido, datos) VALUES (?, ?, ?, ?)"
+                cursor.execute(query, (tareaid, user_id, filename, pyodbc.Binary(file_data)))
+                conn.commit()
+                flash('Archivo subido y guardado correctamente')
+                return redirect('/alumno')
+            else:
+                flash('Formato de archivo no permitido')
+                return redirect(request.url)
         elif opcion == 'Script':
             script = request.form['script']
             script2 = request.form['tablas']
@@ -273,25 +311,26 @@ def entregar_tarea():
 
     return redirect('/alumno')
 
-@app.route('/vertareas', methods=['GET','POST'])
+@app.route('/vertareas', methods=['GET', 'POST'])
 @login_required
 def ver_tareas():
     id_tarea = 0
-    if request.method=='POST':
+    if request.method == 'POST':
         id = request.form['id']
         id_tarea = id
 
     user = session.get('user')
     if user:
-        query = """SELECT Tarea.Titulo, Usuarios.nombre, Usuarios.correo, Entrega_trabajo.datos, Entrega_trabajo.contenido 
+        query = """SELECT Tarea.Titulo, Usuario.nombre, Usuario.correo, Entrega_trabajo.datos, Entrega_trabajo.contenido, Entrega_trabajo.id 
         FROM Entrega_trabajo 
-        INNER JOIN Usuarios on Entrega_trabajo.id_alumno = Usuarios.id 
+        INNER JOIN Usuario on Entrega_trabajo.id_alumno = Usuario.id 
         INNER JOIN Tarea on Entrega_trabajo.id_tarea = Tarea.TareaID 
-        WHERE Usuarios.opcion = 'Alumno' and Tarea.TareaID = ?"""
+        WHERE Usuario.opcion = 'Alumno' and Tarea.TareaID = ?"""
         cursor.execute(query, (int(id_tarea)))
         tareas = cursor.fetchall()
     
         return render_template('Tareas_view.html', tareas=tareas)
+
  
 
 if __name__ == '__main__':

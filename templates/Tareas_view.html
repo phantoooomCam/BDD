@@ -36,9 +36,14 @@
                                 <td class="informacion-tabla">{{ tarea[0] }}</td>
                                 <td class="informacion-tabla">{{ tarea[1] }}</td>
                                 <td class="informacion-tabla">{{ tarea[2] }}</td>
-                                <td class="informacion-tabla">{{ tarea[3] }}</td>
-                                <td class="informacion-tabla">{{ tarea[4] }}</td>
+                                <td class="informacion-tabla">
+                                    {% if tarea[3] %}
+                                    <a href="{{ url_for('descargar_pdf', entrega_id=tarea[5]) }}" target="_blank">Ver/Descargar PDF</a>
+                                    {% else %}
+                                    No hay archivo
+                                    {% endif %}
                                 </td>
+                                <td class="informacion-tabla">{{ tarea[4] }}</td>
                             </tr>
                             {% endfor %}
                         </tbody>

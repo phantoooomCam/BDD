@@ -2,10 +2,10 @@ body{
     background-color: #EEF0F5;
 }
 .header {
-    padding: 20px; /* Espaciado interno del encabezado */
+    padding: 15px; /* Espaciado interno del encabezado */
     text-align: right; /* Alineación del texto a la derecha */
     position: relative; /* Posición relativa para posicionar el título */
-    padding-top: 200px;
+    padding-top: 150px;
     background-color: #5D44F9;
     transition: all 0.3s ease;
     color: #EEF0F5;
@@ -80,4 +80,62 @@ body{
     display: flex;
     flex-direction: column;
     padding: 12px 15px;
+}
+form{
+    background: transparent;
+}
+button{
+    background: transparent;
+    border: 1px solid black;
+    color: black;
+}
+.container{
+    display: flex;
+    flex-direction: column;
+    div{
+        margin: 5px 0;
+    }
+}
+.btn-cerrarsesion{
+    border: transparent;
+    color: white;
+}
+.info-tarea{
+    font-size: 20px;
+    font-weight: 500;
+}
+.btn-entregar{
+    background: #5D44F9;
+    border-radius: 6px;
+    color: white;
+    padding: 7px 20px;
+    font-size: 17px;
+    font-weight: 450;
+}
+.input-atributos{
+    width: 750px;
+    height: 40px;
+    margin: 5px 0;
+    border: 1.8px solid black;
+    border-radius: 4px;
+    outline: none;
+}
+.input-atributos:focus{
+    border: transparent;
+    border: 3px solid #0B63B6;
+}
+.input-tablas{
+    width: 200px;
+    height: 40px;
+    margin: 5px 0;
+    border: 1.8px solid black;
+    border-radius: 4px;
+    outline: none;
+}
+.input-tablas:focus{
+    border: transparent;
+    border: 3px solid #0B63B6;
+}
+input{
+    padding-left: 10px;
 }

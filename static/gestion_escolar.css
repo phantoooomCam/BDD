@@ -72,3 +72,16 @@ tr{
     cursor: pointer;
     background: #B9B9BB;
 }
+a{
+    background: transparent;
+    text-decoration: none;
+    color: white;
+}
+form{
+    background: transparent;
+}
+button{
+    background: transparent;
+    border: none;
+    color: white;
+}

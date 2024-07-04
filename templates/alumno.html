@@ -17,6 +17,9 @@
     <!-- Encabezado -->
     <header class="header">
         <h1 class="asignatura">UPIITA</h1>
+        <form action="/cerrarsesion" method="post">
+            <button class="btn-cerrarsesion" type="submit">Cerrar Sesión</button>
+        </form>
     </header>
 
     <div class="container-fluid">
@@ -50,16 +53,62 @@
                     <h2>Tareas Asignadas</h2>
                     <ul>
                         {% for tarea in tareas %}
-                            <li>{{ tarea.Titulo }} - {{ tarea.Descripcion }} - {{ tarea.Fecha }}
+                            <li><div class="info-tarea">{{ tarea.Titulo }} - {{ tarea.Descripcion }} - {{ tarea.Fecha }}</div>
                                 <form action="/entregar_tarea" method="post" enctype="multipart/form-data" style="display:inline;">
-                                    <input type="hidden" name="tarea_id" value="{{ tarea.TareaID }}">
-                                    <input type="file" name="archivo" required>
-                                    <button type="submit">Entregar</button>
+                                    <div class="container">
+                                        <div>
+                                            <input type="hidden" name="tarea_id" value="{{ tarea.TareaID }}">
+                                        </div>
+                                        <div>    
+                                            <input type="file" name="archivo" required>
+                                        </div>
+                                        <div>Script:    
+                                            <select>
+                                                <option value="">seleccione una opcion</option>
+                                                <option value="SELECT" class="tipo_consulta">SELECT</option>
+                                                <option value="DELETE" class="tipo_consulta">DELETE</option>
+                                                <option value="DROP TABLE" class="tipo_consulta">DROP TABLE</option>
+                                                <option value="INNER JOIN" class="tipo_consulta">INNER JOIN</option>
+                                                <option value="UPDATE" class="tipo_consulta">UPDATE</option>
+                                            </select>
+                                        </div>
+                                        <div>
+                                            Atributos:
+                                            <input type="text" name='tablas' class="input-atributos" placeholder="Escribe tus atributos, de lo contrario escribe *">
+                                        </div>
+                                        <div>
+                                            Operacion:
+                                            <select>
+                                                <option value="" class="resto-consulta">seleccione una opcion</option>
+                                                <option value="FROM" class="resto-consulta">FROM</option>
+                                                <option value="SET" class="resto-consulta">SET</option>
+                                            </select>
+                                        </div>
+                                        <div>
+                                            Nombre de tu tabla:
+                                            <input type="text" name='input-tablas'class='input-tablas' placeholder="Nombre de tu tabla">
+                                        </div>
+                                        <div>
+                                            Condicionales:
+                                            <select>
+                                                <option value="" class="condicional-script">seleccione una opcion</option>
+                                                <option value="" class="condicional-script">WHERE</option>
+                                                <option value="" class="condicional-script">INNER JOIN</option>
+                                            </select>
+                                        </div>
+                                        <div>
+                                            Condiciones:
+                                            <input type="text" class="input-atributos" placeholder="condiciones con IN, AND, OR, etc">
+                                        </div>
+                                        <div>
+                                            <button type="submit" class="btn-entregar">Entregar</button>
+                                        </div>
+                                    </div>
                                 </form>
                             </li>
                         {% endfor %}
                     </ul>
-                </div>
+                </div><br>
 
                 <div id="seccionPracticas" class="card">
                     <h2>Prácticas Asignadas</h2>
@@ -69,12 +118,12 @@
                                 <form action="/entregar_practica" method="post" enctype="multipart/form-data" style="display:inline;">
                                     <input type="hidden" name="practica_id" value="{{ practica.PracticaID }}">
                                     <input type="file" name="archivo" required>
-                                    <button type="submit">Entregar</button>
+                                    <button type="submit" class="btn-entregar">Entregar</button>
                                 </form>
                             </li>
                         {% endfor %}
                     </ul>
-                </div>
+                </div><br>
 
                 <div id="seccionPublicaciones" class="card">
                     <h2>Publicaciones Recientes</h2>
@@ -83,7 +132,7 @@
                             <li>{{ pub.Titulo }} - {{ pub.Descripcion }} - {{ pub.Fecha }}</li>
                         {% endfor %}
                     </ul>
-                </div>
+                </div><br>
             </main>
         </div>
     </div>

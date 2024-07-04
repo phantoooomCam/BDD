@@ -55,15 +55,24 @@
                         {% for tarea in tareas %}
                             <li><div class="info-tarea">{{ tarea.Titulo }} - {{ tarea.Descripcion }} - {{ tarea.Fecha }}</div>
                                 <form action="/entregar_tarea" method="post" enctype="multipart/form-data" style="display:inline;">
+                                    <div class="opcion_de_entrega">
+                                        Opcion de entrega: 
+                                        <select name="opcion_de_entregar">
+                                            <option value="Archivo">Archivo</option>
+                                            <option value="Script">Script</option>
+                                        </select>
+                                    </div>                        
                                     <div class="container">
                                         <div>
                                             <input type="hidden" name="tarea_id" value="{{ tarea.TareaID }}">
                                         </div>
                                         <div>    
-                                            <input type="file" name="archivo" required>
+                                            <input type="file" name="archivo">
                                         </div>
+                                    </div>
+                                    <div class="container">
                                         <div>Script:    
-                                            <select>
+                                            <select name="script">
                                                 <option value="">seleccione una opcion</option>
                                                 <option value="SELECT" class="tipo_consulta">SELECT</option>
                                                 <option value="DELETE" class="tipo_consulta">DELETE</option>
@@ -78,7 +87,7 @@
                                         </div>
                                         <div>
                                             Operacion:
-                                            <select>
+                                            <select name="script2">
                                                 <option value="" class="resto-consulta">seleccione una opcion</option>
                                                 <option value="FROM" class="resto-consulta">FROM</option>
                                                 <option value="SET" class="resto-consulta">SET</option>
@@ -90,16 +99,18 @@
                                         </div>
                                         <div>
                                             Condicionales:
-                                            <select>
+                                            <select name="script3">
                                                 <option value="" class="condicional-script">seleccione una opcion</option>
-                                                <option value="" class="condicional-script">WHERE</option>
-                                                <option value="" class="condicional-script">INNER JOIN</option>
+                                                <option value="WHERE" class="condicional-script">WHERE</option>
+                                                <option value="INNER JOIN" class="condicional-script">INNER JOIN</option>
                                             </select>
                                         </div>
                                         <div>
                                             Condiciones:
-                                            <input type="text" class="input-atributos" placeholder="condiciones con IN, AND, OR, etc">
+                                            <input type="text" name="condi" class="input-atributos" placeholder="condiciones con IN, AND, OR, etc">
                                         </div>
+                                    </div>
+                                    <div>
                                         <div>
                                             <button type="submit" class="btn-entregar">Entregar</button>
                                         </div>

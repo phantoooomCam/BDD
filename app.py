@@ -1,6 +1,7 @@
 from flask import Flask, render_template,request,redirect,url_for,session,Response, flash, make_response
 import pyodbc
 import random
+from flask_sqlalchemy import SQLAlchemy
 import string
 from flask_mail import Mail, Message
 from config import SQL_SERVER_CONFIG
@@ -25,7 +26,7 @@ def login_required(f):
     @wraps(f)
     def decorated_function(*args, **kwargs):
         if 'user' not in session:
-            return redirect(url_for('iniciar_sesion'))
+            return render_template('login.html')
         return f(*args, **kwargs)
     return decorated_function
 
@@ -60,9 +61,8 @@ def index():
         correo = request.form['correo']
         password = request.form['password'] 
         
-        query = "SELECT * FROM Usuario WHERE correo = ? AND  password = ?"
+        query = "SELECT * FROM Usuarios WHERE correo = ? AND  password = ?"
         cursor.execute(query, (correo,password))
-        
         user = cursor.fetchone()
         
         if user:
@@ -103,7 +103,7 @@ def registro():
         correo = request.form['correo']
         password = request.form['password']
         
-        query="INSERT INTO Usuario (opcion, nombre, correo, password) VALUES (?, ?, ?, ?)"
+        query="INSERT INTO Usuarios (opcion, nombre, correo, password) VALUES (?, ?, ?, ?)"
         cursor.execute(query, (opcion, nombre, correo,password))
         conn.commit() 
     
@@ -129,7 +129,7 @@ def alumno():
 @app.route('/gestion', methods=['GET', 'POST'])
 def gestion():
     # Consulta SQL para obtener los usuarios
-    query = "SELECT id, opcion, nombre, correo, password FROM Usuario"
+    query = "SELECT id, opcion, nombre, correo, password FROM Usuarios"
     cursor.execute(query)
     usuarios = cursor.fetchall()
 
@@ -240,6 +240,59 @@ def cerrar_sesion():
     response.headers['Expires'] = '0'  # Proxies
     
     return response
+
+@app.route('/entregar_tarea', methods=['GET','POST'])
+@login_required
+def entregar_tarea():
+    if request.method == 'POST':
+        opcion = request.form['opcion_de_entregar']
+
+        print(opcion)
+        if opcion == 'Archivo':
+
+            #aqui va lo del pdf
+            return redirect('/alumno')
+        elif opcion == 'Script':
+            script = request.form['script']
+            script2 = request.form['tablas']
+            script3 = request.form['script2']
+            script4 = request.form['input-tablas']
+            script5 = request.form['script3']
+            script6 = request.form['condi']
+            tareaid = request.form['tarea_id']
+
+            print(f"{script} {script2} {script3} {script4} {script5} {script6}")
+            print(f"id: {tareaid}")
+            user_id = session['user']['id']
+
+            consulta = script+" "+script2+" "+script3+" "+script4+" "+script5+" "+script6
+            query = "INSERT INTO Entrega_trabajo (id_tarea, id_alumno, contenido, datos) VALUES (?,?,?,NULL)"
+            cursor.execute(query, (tareaid, int(user_id), consulta))
+            conn.commit()
+            print("Insertado en la Base de datos")
+
+    return redirect('/alumno')
+
+@app.route('/vertareas', methods=['GET','POST'])
+@login_required
+def ver_tareas():
+    id_tarea = 0
+    if request.method=='POST':
+        id = request.form['id']
+        id_tarea = id
+
+    user = session.get('user')
+    if user:
+        query = """SELECT Tarea.Titulo, Usuarios.nombre, Usuarios.correo, Entrega_trabajo.datos, Entrega_trabajo.contenido 
+        FROM Entrega_trabajo 
+        INNER JOIN Usuarios on Entrega_trabajo.id_alumno = Usuarios.id 
+        INNER JOIN Tarea on Entrega_trabajo.id_tarea = Tarea.TareaID 
+        WHERE Usuarios.opcion = 'Alumno' and Tarea.TareaID = ?"""
+        cursor.execute(query, (int(id_tarea)))
+        tareas = cursor.fetchall()
+    
+        return render_template('Tareas_view.html', tareas=tareas)
+ 
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=1433,debug=True)

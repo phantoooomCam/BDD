@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Tareas</title>
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&family=Nunito:ital,wght@0,200..1000;1,200..1000&display=swap" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&display=swap" rel="stylesheet">
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
+        <link rel="stylesheet" href="{{ url_for('static', filename='reset.css') }}">
+        <link rel="stylesheet" href="{{ url_for('static', filename='bootstrap.css') }}">
+        <link rel="stylesheet" href="{{ url_for('static', filename='gestion_escolar.css') }}">
+    </head>
+    <body>
+        <header>
+            <form action="/profesor"><button type="submit">Regresar</button></form>
+        </header>    
+        <main>
+            <div class="tabla-center">
+                <div class="tabla-tareas">
+                    <table class="tabla mx-auto">
+                        <thead>
+                            <tr>
+                                <th class="data-head">Tarea</th>
+                                <th class="data-head">Alumno</th>
+                                <th class="data-head">Correo</th>
+                                <th class="data-head">Archivo</th>
+                                <th class="data-head">Consulta</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for tarea in tareas %}
+                            <tr>
+                                <td class="informacion-tabla">{{ tarea[0] }}</td>
+                                <td class="informacion-tabla">{{ tarea[1] }}</td>
+                                <td class="informacion-tabla">{{ tarea[2] }}</td>
+                                <td class="informacion-tabla">{{ tarea[3] }}</td>
+                                <td class="informacion-tabla">{{ tarea[4] }}</td>
+                                </td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </main>
+    </body>
+</html>

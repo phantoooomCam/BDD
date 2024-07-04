@@ -139,3 +139,28 @@ button{
 input{
     padding-left: 10px;
 }
+.tabla-center {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh; /* Altura completa de la ventana */
+}
+.tabla-tareas {
+    width: 80%; /* Puedes ajustar este valor según sea necesario */
+    height: 50vh; /* Altura de la mitad de la ventana */
+    overflow: auto; /* Permite el desplazamiento si la tabla es más alta que el contenedor */
+    border: 1px solid #ddd;
+    padding: 10px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    background-color: #fff;
+}
+.table {
+    width: 100%;
+    height: 100%;
+    border-collapse: collapse;
+}
+.table th, .table td {
+    padding: 8px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+}

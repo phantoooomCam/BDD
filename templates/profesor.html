@@ -58,8 +58,18 @@
             color: white;
             padding: 5px 10px;
             border: none;
-            border-radius: 5px;
+            border-radius: 2px;
             cursor: pointer;
+        }
+        .btn-visualizar{
+            background-color: #1EBF0A;
+            color: white;
+            padding: 5px 10px;
+            border: none;
+            border-radius: 2px;
+            cursor: pointer;
+            margin-top: 1px;
+            margin-left: 2px;
         }
         .item {
             display: flex;
@@ -82,6 +92,14 @@
         }
         ul li{
             display: inline;
+        }
+        .titulo{
+            font-size: 20px;
+            font-weight: 600;
+            padding-right: 5px;
+        }
+        .item{
+            padding: 10px 10px;
         }
     </style>
 </head>
@@ -108,10 +126,14 @@
                 <h2>Próximas Tareas</h2>
                 <ul>
                     {% for tarea in tareas %}
-                        <li class="item">{{ tarea.Titulo }} - {{ tarea.Descripcion }} - {{ tarea.Fecha }}
+                        <li class="item"><div class="titulo">{{ tarea.Titulo }}</div> - {{ tarea.Descripcion }} - {{ tarea.Fecha }}
                             <form action="/eliminar_tarea" method="post" style="display:inline;">
                                 <input type="hidden" name="id" value="{{ tarea.TareaID }}">
                                 <button type="submit" class="btn-delete">Eliminar</button>
+                            </form>
+                            <form action="/vertareas" method="post" style="display:inline;">
+                                <input type="hidden" name="id" value="{{ tarea.TareaID }}">
+                                <button type="submit" class="btn-visualizar">Vizualizar</button>
                             </form>
                         </li>
                     {% endfor %}

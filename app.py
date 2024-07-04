@@ -331,7 +331,5 @@ def ver_tareas():
     
         return render_template('Tareas_view.html', tareas=tareas)
 
- 
-
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=1433,debug=True)

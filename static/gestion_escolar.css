@@ -60,7 +60,7 @@ th{
 }
 .informacion-tabla{
     color: black;
-    padding: 10px 0;
+    padding: 10px 50px;
     font-size: 15px;
     text-align: center;
     background: #E9E9EB;
@@ -84,4 +84,8 @@ button{
     background: transparent;
     border: none;
     color: white;
+}
+.pdf_download{
+    color: #641FBB;
+    text-decoration: underline;
 }

@@ -38,7 +38,7 @@
                                 <td class="informacion-tabla">{{ tarea[2] }}</td>
                                 <td class="informacion-tabla">
                                     {% if tarea[3] %}
-                                    <a href="{{ url_for('descargar_pdf', entrega_id=tarea[5]) }}" target="_blank">Ver/Descargar PDF</a>
+                                    <a href="{{ url_for('descargar_pdf', entrega_id=tarea[5]) }}" class="pdf_download" target="_blank">Ver/Descargar PDF</a>
                                     {% else %}
                                     No hay archivo
                                     {% endif %}
